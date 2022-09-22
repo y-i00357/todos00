@@ -27,3 +27,10 @@ Route::get('/folders/{id}/tasks', [TaskController::class,'index'])->name('tasks.
 //フォルダ作成処理
 Route::get('/folders/create', [FolderController::class,'showCreateForm'])->name('folders.create');
 Route::post('/folders/create', [FolderController::class,'create']);
+
+//タスク作成ページ表示
+//タスク作成処理
+Route::get('/folders/{id}/tasks/create', [TaskController::class,'showCreateForm'])->name('tasks.create');
+Route::post('/folders/{id}/tasks/create', [TaskController::class,'create']);
+
+
