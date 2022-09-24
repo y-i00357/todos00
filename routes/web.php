@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -19,8 +20,11 @@ use App\Http\Controllers\HomeController;
 
 
 
-//Auth::routes();
+
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//認証機能
+Auth::routes();
 
 //ホームページ
 Route::get('/', [HomeController::class,'index'])->name('home');
