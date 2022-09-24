@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\FolderController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,9 @@ use App\Http\Controllers\FolderController;
 //Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//ホームページ
+Route::get('/', [HomeController::class,'index'])->name('home');
+
 //
 Route::get('/folders/{id}/tasks', [TaskController::class,'index'])->name('tasks.index');
 
@@ -33,8 +38,10 @@ Route::post('/folders/create', [FolderController::class,'create']);
 Route::get('/folders/{id}/tasks/create', [TaskController::class,'showCreateForm'])->name('tasks.create');
 Route::post('/folders/{id}/tasks/create', [TaskController::class,'create']);
 
-//
-//
+//タスク編集ページ表示
+//タスク編集機能
 Route::get('/folders/{id}/tasks/{task_id}/edit', [TaskController::class,'showEditForm'])->name('tasks.edit');
 Route::post('/folders/{id}/tasks/{task_id}/edit', [TaskController::class,'edit']);
+
+
 
