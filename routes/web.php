@@ -32,21 +32,25 @@ Route::group(['middleware' => 'auth'], function () {
     //ホームページ
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    //フォルダ/タスク一覧ページ表示
-    Route::get('/folders/{id}/tasks', [TaskController::class, 'index'])->name('tasks.index');
-
     //フォルダ作成ページ
     //フォルダ作成処理
     Route::get('/folders/create', [FolderController::class, 'showCreateForm'])->name('folders.create');
     Route::post('/folders/create', [FolderController::class, 'create']);
 
-    //タスク作成ページ表示
-    //タスク作成処理
-    Route::get('/folders/{id}/tasks/create', [TaskController::class, 'showCreateForm'])->name('tasks.create');
-    Route::post('/folders/{id}/tasks/create', [TaskController::class, 'create']);
+    //認可機能
+    Route::group(['middleware' => 'can:view,folder'], function () {
 
-    //タスク編集ページ表示
-    //タスク編集機能
-    Route::get('/folders/{id}/tasks/{task_id}/edit', [TaskController::class, 'showEditForm'])->name('tasks.edit');
-    Route::post('/folders/{id}/tasks/{task_id}/edit', [TaskController::class, 'edit']);
+        //フォルダ/タスク一覧ページ表示
+        Route::get('/folders/{folder}/tasks', [TaskController::class, 'index'])->name('tasks.index');
+
+        //タスク作成ページ表示
+        //タスク作成処理
+        Route::get('/folders/{folder}/tasks/create', [TaskController::class, 'showCreateForm'])->name('tasks.create');
+        Route::post('/folders/{folder}/tasks/create', [TaskController::class, 'create']);
+
+        //タスク編集ページ表示
+        //タスク編集機能
+        Route::get('/folders/{folder}/tasks/{task}/edit', [TaskController::class, 'showEditForm'])->name('tasks.edit');
+        Route::post('/folders/{folder}/tasks/{task}/edit', [TaskController::class, 'edit']);
+    });
 });
